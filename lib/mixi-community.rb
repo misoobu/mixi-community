@@ -151,7 +151,7 @@ module Mixi
         page.encoding = page_encoding
 
         if page.at("body").attr("class") == "logout"
-          login_page = Mechanize.new.get("https://mixi.jp")
+          login_page = @agent.get("http://mixi.jp")
           login_form = login_page.form_with(name: "login_form")
           raise "login form not found" unless login_form
 
@@ -159,7 +159,7 @@ module Mixi
           login_form.password = @password
           login_form.next_url = uri.to_s
 
-          @agent.submit(login_form)
+          login_form.submit
           page = @agent.page
           page.encoding = page_encoding
         end
