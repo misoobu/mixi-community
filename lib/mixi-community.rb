@@ -59,7 +59,7 @@ module Mixi
           user_uri = Mixi::Community.read_href(dd.at('dl.commentContent01 dt a'))
           user_id = Hash[user_uri.query.split('&').map{|kv|kv.split('=')}]['content_id']
           user_name = dd.at('dl.commentContent01 dt a[last()]').text.strip
-          body_text = resolve_encoding(read_bbs_text(dd.at('dl.commentContent01 dd a'))){|t|t}
+          body_text = resolve_encoding(read_bbs_text(dd.at('dl.commentContent01 dd'))){|t|t}
           comment_id = dt.at('.senderId a').attr(:name).gsub(/^comment_id_(\d+)$/, '\1')
           comment_num = dt.at('.senderId a').text.gsub(/^\[(\d+)\]$/, '\1')
           time = resolve_encoding(dt.at('.date').text) {|t| parse_comment_time(t) }
