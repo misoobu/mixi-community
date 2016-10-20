@@ -22,7 +22,7 @@ module Mixi
 
     def fetch(fetcher)
       page = fetcher.get(uri)
-      @recent_bbses = page.search('#newCommunityTopic .contents dl dd a').map {|a|
+      @recent_bbses = page.search('a.COMMUNITY_bodyContentList__link').map {|a|
         bbs_uri = Mixi::Community.read_href(a)
         bbs_title = a.text
         bbs_id = Hash[bbs_uri.query.split('&').map{|kv|kv.split('=')}]['id']
